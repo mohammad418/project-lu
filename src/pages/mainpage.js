@@ -1,30 +1,31 @@
 import "./mainpage.css";
 import image from "../assets/garage.png";
+
 function MainPage() {
   return (
     <div className="mainpage">
       <div className="headermain">
         <div className="headerright">
           <button className="loginbutton">
-            <a href="##">
+            <a href="#login">
               ورود&nbsp; به&nbsp; سیستم &nbsp;&nbsp;
-              <i class="fa fa-expeditedssl"></i>
+              <i className="fa fa-expeditedssl"></i>
             </a>
           </button>
         </div>
         <div className="headercenter">
           <h1>
-            <a href="#">صفحه اصلی</a>
+            <a href="#home">صفحه اصلی</a>
           </h1>
           <h1>
             {" "}
-            <a href="#">درباره ما</a>
+            <a href="#about">درباره ما</a>
           </h1>{" "}
           <h1>
-            <a href="#">امکانات</a>
+            <a href="#features">امکانات</a>
           </h1>
           <h1>
-            <a href="#">تماس با ما</a>
+            <a href="#contact">تماس با ما</a>
           </h1>
         </div>
         <div className="headerleft">
@@ -52,19 +53,19 @@ function MainPage() {
           </p>
           <br />
           <button className="login-body">
-            <a href="#">
+            <a href="#login">
               {" "}
-              <i class="fa fa-sign-in"></i>&nbsp;&nbsp; ورود به سیستم
+              <i className="fa fa-sign-in"></i>&nbsp;&nbsp; ورود به سیستم
             </a>
           </button>
         </div>
         <div className="footer-main">
           <div>
-            <a href="">
+            <a href="#invoices">
               <b>
                 <p className="titr">
                   فاکتور ها و گزارش ها&nbsp;&nbsp;&nbsp;
-                  <i class="fa fa-file-text-o" id="text-o"></i>
+                  <i className="fa fa-file-text-o" id="text-o"></i>
                 </p>
               </b>
               <p className="footer-text">
@@ -74,11 +75,11 @@ function MainPage() {
             </a>
           </div>
           <div>
-            <a href="">
+            <a href="#parts">
               <b>
                 <p className="titr">
                   مدیریت قطعات&nbsp;&nbsp;&nbsp;
-                  <i class="fa fa-cubes" id="cubes"></i>
+                  <i className="fa fa-cubes" id="cubes"></i>
                 </p>
               </b>
               <p className="footer-text">
@@ -88,11 +89,11 @@ function MainPage() {
             </a>
           </div>
           <div>
-            <a href="">
+            <a href="#services">
               <b>
                 <p className="titr">
                   تعمیرات و خدمات&nbsp;&nbsp;&nbsp;
-                  <i class="fa fa-wrench" id="wrench"></i>
+                  <i className="fa fa-wrench" id="wrench"></i>
                 </p>
               </b>
               <p className="footer-text">
@@ -101,23 +102,24 @@ function MainPage() {
             </a>
           </div>
           <div>
-            <a href="">
+            <a href="#cars">
               <b>
                 <p className="titr">
                   مدیریت خودرو ها&nbsp;&nbsp;&nbsp;
-                  <i class="fa fa-car" id="car"></i>
+                  <i className="fa fa-car" id="car"></i>
                 </p>
               </b>
               <p className="footer-text">
-                ثبت و مدیریت اطلاعات <br /> خودرو های مشتریان              </p>
+                ثبت و مدیریت اطلاعات <br /> خودرو های مشتریان
+              </p>
             </a>
           </div>
           <div className="last-div">
-            <a href="">
+            <a href="#customers">
               <b>
                 <p className="titr">
-                 مدیریت مشتریان&nbsp;&nbsp;&nbsp;
-                  <i class="fa fa-group" id="group"></i>
+                  مدیریت مشتریان&nbsp;&nbsp;&nbsp;
+                  <i className="fa fa-group" id="group"></i>
                 </p>
               </b>
               <p className="footer-text">
