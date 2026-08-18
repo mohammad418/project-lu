@@ -1,13 +1,13 @@
 import "./mainpage.css";
 import image from "../assets/garage.png";
 
-function MainPage() {
+function MainPage({ onLoginClick }) {
   return (
     <div className="mainpage">
       <div className="headermain">
         <div className="headerright">
-          <button className="loginbutton">
-            <a href="#login">
+          <button className="loginbutton" onClick={onLoginClick}>
+            <a href="#login" onClick={(e) => e.preventDefault()}>
               ورود&nbsp; به&nbsp; سیستم &nbsp;&nbsp;
               <i className="fa fa-expeditedssl"></i>
             </a>
@@ -52,8 +52,8 @@ function MainPage() {
             همه در یک سیستم یکپارچه و هوشمند
           </p>
           <br />
-          <button className="login-body">
-            <a href="#login">
+          <button className="login-body" onClick={onLoginClick}>
+            <a href="#login" onClick={(e) => e.preventDefault()}>
               {" "}
               <i className="fa fa-sign-in"></i>&nbsp;&nbsp; ورود به سیستم
             </a>
@@ -130,9 +130,7 @@ function MainPage() {
           </div>
         </div>
       </div>
-      <footer>
-        1405 تمامی حقوق محفوظ است - سامانه مدیریت تعمیرگاه خودرو
-      </footer>
+      <footer>1405 تمامی حقوق محفوظ است - سامانه مدیریت تعمیرگاه خودرو</footer>
     </div>
   );
 }
