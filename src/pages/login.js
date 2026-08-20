@@ -1,7 +1,7 @@
 import "./login.css";
 import image from "../assets/garage.jpg";
 
-function login({ onBack }) {
+function login({ onBack, onSignupClick }) {
   return (
     <div className="loginpage">
       <img src={image} alt="garage" className="log-img" />
@@ -19,7 +19,13 @@ function login({ onBack }) {
           <a href="#" onClick={(e) => e.preventDefault()}>
             رمز عبور را فراموش کرده اید؟
           </a>
-          <a href="#" onClick={(e) => e.preventDefault()}>
+          <a
+            href="#signup"
+            onClick={(e) => {
+              e.preventDefault();
+              if (onSignupClick) onSignupClick();
+            }}
+          >
             حساب ندارید؟ثبت نام کنید
           </a>
         </form>
