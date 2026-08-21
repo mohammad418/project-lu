@@ -4,14 +4,18 @@ import image from "../assets/garage.jpg";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import { postApi } from "../utils/api";
 
-function Signup({ onBack, onLoginClick }) {
+function Signup({ onBack, onLoginClick, onSignupSuccess }) {
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const toEnglishDigits = (str) => {
     return str
@@ -47,7 +51,94 @@ function Signup({ onBack, onLoginClick }) {
       <div className="form">
         <b className="titr">سامانه مدیریت تعمیرگاه</b>
         <p className="log-second">لطفا حساب کاربری خود را ایجاد کنید</p>
-        <form action="" className="login" onSubmit={(e) => e.preventDefault()}>
+
+        {error && <div className="error-box">{error}</div>}
+        {success && <div className="success-box">{success}</div>}
+
+        <form
+          action=""
+          className="login"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setError("");
+            setSuccess("");
+
+            if (!username.trim()) {
+              setError("لطفاً نام کاربری را وارد کنید.");
+              return;
+            }
+
+            if (!phone || phone.length < 10) {
+              setError("لطفاً شماره تلفن معتبر (۱۰ رقمی با ۰) وارد کنید.");
+              return;
+            }
+
+            if (email && !isEmailValid(email)) {
+              setError("فرمت ایمیل وارد شده صحیح نیست.");
+              return;
+            }
+
+            if (!password || password.length < 4) {
+              setError("رمز عبور باید حداقل ۴ کاراکتر باشد.");
+              return;
+            }
+
+            if (password !== confirmPassword) {
+              setError("تکرار رمز عبور با رمز عبور یکسان نمی‌باشد.");
+              return;
+            }
+
+            setLoading(true);
+            try {
+              let formattedBirthDate = null;
+              if (birthDate) {
+                if (typeof birthDate === "object" && birthDate.format) {
+                  formattedBirthDate = birthDate.format("YYYY/MM/DD");
+                } else {
+                  formattedBirthDate = String(birthDate);
+                }
+              }
+
+              const response = await postApi("/api/auth/signup", {
+                username: username.trim(),
+                phone,
+                email: email ? email.trim() : "",
+                birthDate: formattedBirthDate,
+                password,
+              });
+
+              const data = await response.json();
+
+              if (!response.ok || !data.success) {
+                setError(
+                  data.message || "خطا در ثبت نام. لطفاً مجدداً تلاش کنید.",
+                );
+              } else {
+                setSuccess(data.message || "ثبت نام با موفقیت انجام شد.");
+                if (data.token) {
+                  localStorage.setItem("token", data.token);
+                }
+                if (data.user) {
+                  localStorage.setItem("user", JSON.stringify(data.user));
+                }
+                setTimeout(() => {
+                  if (onSignupSuccess) {
+                    onSignupSuccess(data.user);
+                  } else if (onLoginClick) {
+                    onLoginClick();
+                  } else if (onBack) {
+                    onBack();
+                  }
+                }, 1200);
+              }
+            } catch (err) {
+              console.error("Signup error:", err);
+              setError("خطا در برقراری ارتباط با سرور.");
+            } finally {
+              setLoading(false);
+            }
+          }}
+        >
           <input
             type="text"
             placeholder="نام کاربری"
@@ -114,7 +205,20 @@ function Signup({ onBack, onLoginClick }) {
             <label htmlFor="remember">مرا به خاطر بسپار</label>
           </div>
 
-          <input type="button" value="ثبت نام" />
+          <input
+            type="button"
+            value={loading ? "در حال ثبت نام..." : "ثبت نام"}
+            disabled={loading}
+            onClick={(e) => {
+              const form = e.target.closest("form");
+              if (form)
+                form.requestSubmit
+                  ? form.requestSubmit()
+                  : form.dispatchEvent(
+                      new Event("submit", { cancelable: true, bubbles: true }),
+                    );
+            }}
+          />
 
           {onLoginClick && (
             <a

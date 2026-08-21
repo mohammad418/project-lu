@@ -155,7 +155,8 @@ input[type="number"] {
   margin: 0;
 }
 
-.login input[type="button"] {
+.login input[type="button"],
+.login input[type="submit"] {
   width: 100%;
   height: 40px;
   background-color: rgb(17, 145, 255);
@@ -172,13 +173,15 @@ input[type="number"] {
   transition: all 0.25s ease;
 }
 
-.login input[type="button"]:hover {
+.login input[type="button"]:hover,
+.login input[type="submit"]:hover {
   background-color: #0c7de2;
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(17, 145, 255, 0.6);
 }
 
-.login input[type="button"]:active {
+.login input[type="button"]:active,
+.login input[type="submit"]:active {
   transform: translateY(0);
 }
 
@@ -193,6 +196,32 @@ input[type="number"] {
 .login a:hover {
   color: #60a5fa;
   text-decoration: underline;
+}
+
+.error-box {
+  width: 100%;
+  background-color: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.success-box {
+  width: 100%;
+  background-color: rgba(34, 197, 94, 0.2);
+  border: 1px solid #22c55e;
+  color: #86efac;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .backkey {

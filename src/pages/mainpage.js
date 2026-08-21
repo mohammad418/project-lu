@@ -1,17 +1,26 @@
 import "./mainpage.css";
 import image from "../assets/garage.png";
 
-function MainPage({ onLoginClick }) {
+function MainPage({ onLoginClick, currentUser, onLogout }) {
   return (
     <div className="mainpage">
       <div className="headermain">
         <div className="headerright">
-          <button className="loginbutton" onClick={onLoginClick}>
-            <a href="#login" onClick={(e) => e.preventDefault()}>
-              ورود&nbsp; به&nbsp; سیستم &nbsp;&nbsp;
-              <i className="fa fa-expeditedssl"></i>
-            </a>
-          </button>
+          {currentUser ? (
+            <div className="user-profile-badge">
+              <span className="user-welcome">خوش آمدید، {currentUser.username}</span>
+              <button className="logoutbutton" onClick={onLogout}>
+                خروج <i className="fa fa-sign-out"></i>
+              </button>
+            </div>
+          ) : (
+            <button className="loginbutton" onClick={onLoginClick}>
+              <a href="#login" onClick={(e) => e.preventDefault()}>
+                ورود&nbsp; به&nbsp; سیستم &nbsp;&nbsp;
+                <i className="fa fa-expeditedssl"></i>
+              </a>
+            </button>
+          )}
         </div>
         <div className="headercenter">
           <h1>
@@ -52,12 +61,20 @@ function MainPage({ onLoginClick }) {
             همه در یک سیستم یکپارچه و هوشمند
           </p>
           <br />
-          <button className="login-body" onClick={onLoginClick}>
-            <a href="#login" onClick={(e) => e.preventDefault()}>
-              {" "}
-              <i className="fa fa-sign-in"></i>&nbsp;&nbsp; ورود به سیستم
-            </a>
-          </button>
+          {currentUser ? (
+            <div className="user-welcome-box">
+              <p className="welcome-text">
+                کاربر محترم <span>{currentUser.username}</span> به سامانه مدیریت خوش آمدید.
+              </p>
+            </div>
+          ) : (
+            <button className="login-body" onClick={onLoginClick}>
+              <a href="#login" onClick={(e) => e.preventDefault()}>
+                {" "}
+                <i className="fa fa-sign-in"></i>&nbsp;&nbsp; ورود به سیستم
+              </a>
+            </button>
+          )}
         </div>
         <div className="footer-main">
           <div>
