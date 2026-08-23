@@ -3,7 +3,7 @@ import "./login.css";
 import image from "../assets/garage.jpg";
 import { postApi } from "../utils/api";
 
-function Login({ onBack, onSignupClick, onLoginSuccess }) {
+function Login({ onBack, onSignupClick, onForgetClick, onLoginSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
@@ -98,7 +98,13 @@ function Login({ onBack, onSignupClick, onLoginSuccess }) {
             disabled={loading}
             onClick={handleSubmit}
           />
-          <a href="#forgot" onClick={(e) => e.preventDefault()}>
+          <a
+            href="#forgot"
+            onClick={(e) => {
+              e.preventDefault();
+              if (onForgetClick) onForgetClick();
+            }}
+          >
             رمز عبور را فراموش کرده اید؟
           </a>
           <a

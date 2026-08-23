@@ -24,7 +24,7 @@ exports.signup = async (req, res, next) => {
     }
 
     const cleanPhone = phone.replace(/\D/g, "");
-    if (!cleanPhone.startsWith("0") || cleanPhone.length < 10) {
+    if (!cleanPhone.startsWith("0") || cleanPhone.length < 11) {
       return res
         .status(400)
         .json({ success: false, message: "شماره تلفن معتبر نیست." });
@@ -174,28 +174,54 @@ exports.login = async (req, res, next) => {
 
 exports.forgotPassword = async (req, res, next) => {
   try {
-    const { username, email, phone } = req.body;
+    const { username, email, phone, newPassword } = req.body;
 
-    let user;
-    if (username) {
-      user = await get("SELECT * FROM users WHERE username = ?", [
-        username.trim(),
-      ]);
-    } else if (email) {
-      user = await get("SELECT * FROM users WHERE email = ?", [email.trim()]);
-    } else if (phone) {
-      user = await get("SELECT * FROM users WHERE phone = ?", [phone.trim()]);
+    if (!username || !username.trim()) {
+      return res
+        .status(400)
+        .json({ success: false, message: "لطفاً نام کاربری را وارد کنید." });
     }
+
+    if (!phone || !phone.trim()) {
+      return res
+        .status(400)
+        .json({ success: false, message: "لطفاً شماره تلفن را وارد کنید." });
+    }
+
+    if (!email || !email.trim()) {
+      return res
+        .status(400)
+        .json({ success: false, message: "لطفاً ایمیل را وارد کنید." });
+    }
+
+    const cleanPhone = phone.replace(/\D/g, "");
+
+    const user = await get(
+      "SELECT * FROM users WHERE username = ? AND phone = ? AND email = ?",
+      [username.trim(), cleanPhone, email.trim()],
+    );
 
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "کاربری با این اطلاعات یافت نشد." });
+      return res.status(404).json({
+        success: false,
+        message:
+          "کاربری با این مشخصات (نام کاربری، ایمیل و شماره تلفن) یافت نشد.",
+      });
     }
+
+    const targetPassword =
+      newPassword && newPassword.trim() ? newPassword.trim() : "123456";
+    const hashedPassword = await bcrypt.hash(targetPassword, 10);
+
+    await run("UPDATE users SET password = ? WHERE id = ?", [
+      hashedPassword,
+      user.id,
+    ]);
 
     return res.status(200).json({
       success: true,
-      message: "لینک/کد بازیابی رمز عبور با موفقیت ارسال شد.",
+      message: "اطلاعات بازیابی با موفقیت تایید شد.",
+      password: targetPassword,
     });
   } catch (error) {
     next(error);

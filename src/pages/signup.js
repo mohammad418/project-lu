@@ -36,7 +36,7 @@ function Signup({ onBack, onLoginClick, onSignupSuccess }) {
       return;
     }
 
-    if (digits.length <= 10) {
+    if (digits.length <= 11) {
       setPhone(digits);
     }
   };
@@ -68,8 +68,8 @@ function Signup({ onBack, onLoginClick, onSignupSuccess }) {
               return;
             }
 
-            if (!phone || phone.length < 10) {
-              setError("لطفاً شماره تلفن معتبر (۱۰ رقمی با ۰) وارد کنید.");
+            if (!phone || phone.length < 11) {
+              setError("لطفاً شماره تلفن معتبر (۱۱ رقمی با ۰) وارد کنید.");
               return;
             }
 
@@ -154,7 +154,7 @@ function Signup({ onBack, onLoginClick, onSignupSuccess }) {
             placeholder="شماره تلفن"
             value={phone}
             onChange={handlePhoneChange}
-            maxLength={10}
+            maxLength={11}
           />
 
           <input

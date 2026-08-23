@@ -1,7 +1,15 @@
 import "./mainpage.css";
 import image from "../assets/garage.png";
 
-function MainPage({ onLoginClick, currentUser, onLogout }) {
+function MainPage({
+  onLoginClick,
+  onAboutClick,
+  onFeaturesClick,
+  onContactClick,
+  onFeatureClick,
+  currentUser,
+  onLogout,
+}) {
   return (
     <div className="mainpage">
       <div className="headermain">
@@ -27,14 +35,37 @@ function MainPage({ onLoginClick, currentUser, onLogout }) {
             <a href="#home">صفحه اصلی</a>
           </h1>
           <h1>
-            {" "}
-            <a href="#about">درباره ما</a>
+            <a
+              href="#about"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onAboutClick) onAboutClick();
+              }}
+            >
+              درباره ما
+            </a>
           </h1>{" "}
           <h1>
-            <a href="#features">امکانات</a>
+            <a
+              href="#features"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onFeaturesClick) onFeaturesClick();
+              }}
+            >
+              امکانات
+            </a>
           </h1>
           <h1>
-            <a href="#contact">تماس با ما</a>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onContactClick) onContactClick();
+              }}
+            >
+              تماس با ما
+            </a>
           </h1>
         </div>
         <div className="headerleft">
@@ -78,7 +109,13 @@ function MainPage({ onLoginClick, currentUser, onLogout }) {
         </div>
         <div className="footer-main">
           <div>
-            <a href="#invoices">
+            <a
+              href="#invoices"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onFeatureClick) onFeatureClick("invoices");
+              }}
+            >
               <b>
                 <p className="titr">
                   فاکتور ها و گزارش ها&nbsp;&nbsp;&nbsp;
@@ -92,7 +129,13 @@ function MainPage({ onLoginClick, currentUser, onLogout }) {
             </a>
           </div>
           <div>
-            <a href="#parts">
+            <a
+              href="#parts"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onFeatureClick) onFeatureClick("parts");
+              }}
+            >
               <b>
                 <p className="titr">
                   مدیریت قطعات&nbsp;&nbsp;&nbsp;
@@ -106,7 +149,13 @@ function MainPage({ onLoginClick, currentUser, onLogout }) {
             </a>
           </div>
           <div>
-            <a href="#services">
+            <a
+              href="#services"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onFeatureClick) onFeatureClick("services");
+              }}
+            >
               <b>
                 <p className="titr">
                   تعمیرات و خدمات&nbsp;&nbsp;&nbsp;
@@ -119,7 +168,13 @@ function MainPage({ onLoginClick, currentUser, onLogout }) {
             </a>
           </div>
           <div>
-            <a href="#cars">
+            <a
+              href="#cars"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onFeatureClick) onFeatureClick("cars");
+              }}
+            >
               <b>
                 <p className="titr">
                   مدیریت خودرو ها&nbsp;&nbsp;&nbsp;
@@ -132,7 +187,13 @@ function MainPage({ onLoginClick, currentUser, onLogout }) {
             </a>
           </div>
           <div className="last-div">
-            <a href="#customers">
+            <a
+              href="#customers"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onFeatureClick) onFeatureClick("customers");
+              }}
+            >
               <b>
                 <p className="titr">
                   مدیریت مشتریان&nbsp;&nbsp;&nbsp;

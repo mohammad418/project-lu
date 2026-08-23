@@ -3,6 +3,15 @@ import "./App.css";
 import MainPage from "./pages/mainpage";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import Forgot from "./pages/forgot";
+import About from "./pages/about";
+import Features from "./pages/features";
+import Customers from "./pages/customers";
+import Cars from "./pages/cars";
+import Services from "./pages/services";
+import Parts from "./pages/parts";
+import Invoices from "./pages/invoices";
+import Contact from "./pages/contact";
 
 function App() {
   const [page, setPage] = useState("main");
@@ -37,6 +46,10 @@ function App() {
           currentUser={currentUser}
           onLogout={handleLogout}
           onLoginClick={() => setPage("login")}
+          onAboutClick={() => setPage("about")}
+          onFeaturesClick={() => setPage("features")}
+          onContactClick={() => setPage("contact")}
+          onFeatureClick={(key) => setPage(`feature${key.charAt(0).toUpperCase() + key.slice(1)}`)}
         />
       ) : page === "signup" ? (
         <Signup
@@ -44,10 +57,39 @@ function App() {
           onLoginClick={() => setPage("login")}
           onSignupSuccess={handleLoginSuccess}
         />
+      ) : page === "forgot" || page === "forget" ? (
+        <Forgot
+          onBack={() => setPage("main")}
+          onLoginClick={() => setPage("login")}
+        />
+      ) : page === "about" ? (
+        <About
+          onBack={() => setPage("main")}
+          onLoginClick={() => setPage("login")}
+          onFeaturesClick={() => setPage("features")}
+        />
+      ) : page === "features" ? (
+        <Features
+          onBack={() => setPage("main")}
+          onFeatureClick={(key) => setPage(`feature${key.charAt(0).toUpperCase() + key.slice(1)}`)}
+        />
+      ) : page === "featureCustomers" ? (
+        <Customers onBack={() => setPage("features")} />
+      ) : page === "featureCars" ? (
+        <Cars onBack={() => setPage("features")} />
+      ) : page === "featureServices" ? (
+        <Services onBack={() => setPage("features")} />
+      ) : page === "featureParts" ? (
+        <Parts onBack={() => setPage("features")} />
+      ) : page === "featureInvoices" ? (
+        <Invoices onBack={() => setPage("features")} />
+      ) : page === "contact" ? (
+        <Contact onBack={() => setPage("main")} />
       ) : (
         <Login
           onBack={() => setPage("main")}
           onSignupClick={() => setPage("signup")}
+          onForgetClick={() => setPage("forgot")}
           onLoginSuccess={handleLoginSuccess}
         />
       )}
