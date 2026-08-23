@@ -39,6 +39,15 @@ function App() {
     setCurrentUser(null);
   };
 
+  const handleFeatureClick = (key) => {
+    if (!currentUser) {
+      alert("برای استفاده از امکانات وارد سیستم شوید");
+      setPage("login");
+      return;
+    }
+    setPage(`feature${key.charAt(0).toUpperCase() + key.slice(1)}`);
+  };
+
   return (
     <div className="App">
       {page === "main" ? (
@@ -49,7 +58,7 @@ function App() {
           onAboutClick={() => setPage("about")}
           onFeaturesClick={() => setPage("features")}
           onContactClick={() => setPage("contact")}
-          onFeatureClick={(key) => setPage(`feature${key.charAt(0).toUpperCase() + key.slice(1)}`)}
+          onFeatureClick={handleFeatureClick}
         />
       ) : page === "signup" ? (
         <Signup
@@ -71,7 +80,7 @@ function App() {
       ) : page === "features" ? (
         <Features
           onBack={() => setPage("main")}
-          onFeatureClick={(key) => setPage(`feature${key.charAt(0).toUpperCase() + key.slice(1)}`)}
+          onFeatureClick={handleFeatureClick}
         />
       ) : page === "featureCustomers" ? (
         <Customers onBack={() => setPage("features")} />
