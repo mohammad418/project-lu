@@ -12,6 +12,9 @@ import Services from "./pages/services";
 import Parts from "./pages/parts";
 import Invoices from "./pages/invoices";
 import Contact from "./pages/contact";
+import Dashboard from "./pages/Dashboard";
+import Placeholder from "./pages/Placeholder";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const [page, setPage] = useState("main");
@@ -37,7 +40,20 @@ function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setCurrentUser(null);
+    setPage("main");
   };
+
+  const sidebarPages = [
+    "dashboard",
+    "featureCustomers",
+    "featureCars",
+    "featureServices",
+    "featureParts",
+    "featureInvoices",
+    "reports",
+    "users",
+    "settings",
+  ];
 
   const handleFeatureClick = (key) => {
     if (!currentUser) {
@@ -82,16 +98,25 @@ function App() {
           onBack={() => setPage("main")}
           onFeatureClick={handleFeatureClick}
         />
-      ) : page === "featureCustomers" ? (
-        <Customers onBack={() => setPage("features")} />
-      ) : page === "featureCars" ? (
-        <Cars onBack={() => setPage("features")} />
-      ) : page === "featureServices" ? (
-        <Services onBack={() => setPage("features")} />
-      ) : page === "featureParts" ? (
-        <Parts onBack={() => setPage("features")} />
-      ) : page === "featureInvoices" ? (
-        <Invoices onBack={() => setPage("features")} />
+      ) : sidebarPages.includes(page) ? (
+        <div className="layout-with-sidebar">
+          <Sidebar
+            activePage={page}
+            onNavigate={setPage}
+            onLogout={handleLogout}
+            onHome={() => setPage("main")}
+          />
+          <div className="sidebar-content">
+            {page === "dashboard" && <Dashboard />}
+            {page === "featureCustomers" && <Customers />}
+            {page === "featureCars" && <Cars />}
+            {page === "featureServices" && <Services />}
+            {page === "featureParts" && <Parts />}
+            {page === "featureInvoices" && <Invoices />}
+            {page === "reports" && <Placeholder title="گزارش ها" />}
+            {page === "users" && <Placeholder title="کاربران" />}
+          </div>
+        </div>
       ) : page === "contact" ? (
         <Contact onBack={() => setPage("main")} />
       ) : (
