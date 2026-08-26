@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "./static/css/main.ec5180e8.css",
-    "main.js": "./static/js/main.7b20a601.js",
+    "main.css": "./static/css/main.e30f2147.css",
+    "main.js": "./static/js/main.32310a61.js",
     "static/media/garage.png": "./static/media/garage.517bed1a927f21a21e0a.png",
     "static/media/garage.jpg": "./static/media/garage.ad65893bad0c343c5180.jpg",
     "static/media/Parastoo.woff": "./static/media/Parastoo.4920a8ce8a8db3019643.woff",
     "static/media/Vazir.woff": "./static/media/Vazir.e5a10e75de018ba47968.woff",
     "static/media/Parastoo.woff2": "./static/media/Parastoo.400ab65a3bdbfbe4fb7a.woff2",
     "index.html": "./index.html",
-    "main.ec5180e8.css.map": "./static/css/main.ec5180e8.css.map",
-    "main.7b20a601.js.map": "./static/js/main.7b20a601.js.map"
+    "main.e30f2147.css.map": "./static/css/main.e30f2147.css.map",
+    "main.32310a61.js.map": "./static/js/main.32310a61.js.map"
   },
   "entrypoints": [
-    "static/css/main.ec5180e8.css",
-    "static/js/main.7b20a601.js"
+    "static/css/main.e30f2147.css",
+    "static/js/main.32310a61.js"
   ]
 }
