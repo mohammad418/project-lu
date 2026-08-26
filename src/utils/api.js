@@ -1,16 +1,22 @@
 const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
+const joinUrl = (base, endpoint) =>
+  `${base.replace(/\/$/, "")}${endpoint}`;
+
 export async function postApi(endpoint, data) {
+  const url = process.env.REACT_APP_API_URL
+    ? joinUrl(process.env.REACT_APP_API_URL, endpoint)
+    : endpoint;
+
   try {
-    const res = await fetch(endpoint, {
+    const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    // If response is valid HTTP status (200, 400, 401, etc.), return it
     if (res) return res;
   } catch (err) {
-    // Proxy or relative fetch network error -> fallback to absolute URL
+    // Network error -> fallback to default base URL
   }
 
   return fetch(`${API_BASE_URL}${endpoint}`, {
@@ -26,8 +32,12 @@ export async function getApi(endpoint, token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
 
+  const url = process.env.REACT_APP_API_URL
+    ? joinUrl(process.env.REACT_APP_API_URL, endpoint)
+    : endpoint;
+
   try {
-    const res = await fetch(endpoint, { headers });
+    const res = await fetch(url, { headers });
     if (res) return res;
   } catch (err) {
     // Fallback
