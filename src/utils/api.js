@@ -1,47 +1,43 @@
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+// آدرس پایه‌ی بک‌اند از متغیر محیطی خوانده می‌شود.
+// در حالت لوکال خالی می‌ماند و از proxy پکیج react-scripts استفاده می‌شود.
+const rawBase = (process.env.REACT_APP_API_URL || "").trim();
 
-const joinUrl = (base, endpoint) =>
-  `${base.replace(/\/$/, "")}${endpoint}`;
+// اگر آدرس هنوز placeholder باشد یا در حالت https به localhost اشاره کند،
+// آن را نادیده می‌گیریم تا درخواست‌ها به سرور ناموجود نروند.
+const isInvalid =
+  !rawBase ||
+  rawBase.includes("YOUR-BACKEND-URL") ||
+  (rawBase.includes("localhost") &&
+    typeof window !== "undefined" &&
+    window.location.protocol === "https:");
 
-export async function postApi(endpoint, data) {
-  const url = process.env.REACT_APP_API_URL
-    ? joinUrl(process.env.REACT_APP_API_URL, endpoint)
-    : endpoint;
+export const API_BASE_URL = isInvalid ? "" : rawBase.replace(/\/$/, "");
 
+const buildUrl = (endpoint) => `${API_BASE_URL}${endpoint}`;
+
+async function request(endpoint, options) {
   try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (res) return res;
+    return await fetch(buildUrl(endpoint), options);
   } catch (err) {
-    // Network error -> fallback to default base URL
+    const error = new Error(
+      "خطا در برقراری ارتباط با سرور. مطمئن شوید بک‌اند روی Render دیپلوی شده و آدرس آن در فایل .env.production تنظیم شده است.",
+    );
+    error.cause = err;
+    throw error;
   }
+}
 
-  return fetch(`${API_BASE_URL}${endpoint}`, {
+export function postApi(endpoint, data) {
+  return request(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 }
 
-export async function getApi(endpoint, token) {
+export function getApi(endpoint, token) {
   const headers = {};
-  if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
-  }
-
-  const url = process.env.REACT_APP_API_URL
-    ? joinUrl(process.env.REACT_APP_API_URL, endpoint)
-    : endpoint;
-
-  try {
-    const res = await fetch(url, { headers });
-    if (res) return res;
-  } catch (err) {
-    // Fallback
-  }
-
-  return fetch(`${API_BASE_URL}${endpoint}`, { headers });
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+  return request(endpoint, { headers });
 }
+

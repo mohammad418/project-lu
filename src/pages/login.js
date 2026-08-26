@@ -51,7 +51,9 @@ function Login({ onBack, onSignupClick, onForgetClick, onLoginSuccess }) {
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("خطا در برقراری ارتباط با سرور.");
+      setError(
+        "خطا در برقراری ارتباط با سرور. اگر سایت را روی گیت‌هاب باز کرده‌اید، بک‌اند باید روی Render دیپلوی شده باشد.",
+      );
     } finally {
       setLoading(false);
     }
