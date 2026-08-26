@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.e30f2147.css",
-    "main.js": "./static/js/main.43a1dc57.js",
+    "main.js": "./static/js/main.25a0bc35.js",
     "static/media/garage.png": "./static/media/garage.517bed1a927f21a21e0a.png",
     "static/media/garage.jpg": "./static/media/garage.ad65893bad0c343c5180.jpg",
     "static/media/Parastoo.woff": "./static/media/Parastoo.4920a8ce8a8db3019643.woff",
@@ -9,10 +9,10 @@
     "static/media/Parastoo.woff2": "./static/media/Parastoo.400ab65a3bdbfbe4fb7a.woff2",
     "index.html": "./index.html",
     "main.e30f2147.css.map": "./static/css/main.e30f2147.css.map",
-    "main.43a1dc57.js.map": "./static/js/main.43a1dc57.js.map"
+    "main.25a0bc35.js.map": "./static/js/main.25a0bc35.js.map"
   },
   "entrypoints": [
     "static/css/main.e30f2147.css",
-    "static/js/main.43a1dc57.js"
+    "static/js/main.25a0bc35.js"
   ]
 }
